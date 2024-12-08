@@ -5,12 +5,12 @@ import { IP } from "@/data/ip";
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 export default function Cont({route}) {
-    const { idUtilizator} = route.params;
+    const { idUtilizator } = route.params;
 
     const [data, setData] = useState({});
     const [loading, setLoading] = useState(true);
-    const [showRewards, setShowRewards] = useState(false);
-    const [selectedReward, setSelectedReward] = useState(null);
+    const [showOffers, setShowOffers] = useState(false);
+    const [selectedOffer, setSelectedOffer] = useState(null);
     const [quantity, setQuantity] = useState('');
     const [modalVisible, setModalVisible] = useState(false);
 
@@ -27,76 +27,71 @@ export default function Cont({route}) {
         setData(response.data);
     }
 
-    const rewards = [
-        { id: '1', name: 'FIFA Points', image: require('../assets/images/fifapoints.png'), cost: 150 },
-        { id: '2', name: 'Voucher Restaurant', image: require('../assets/images/restaurantimg.png'), cost: 100 },
-        { id: '3', name: 'Bani în PayPal', image: require('../assets/images/paypal.png'), cost: 200 },
-        { id: '4', name: 'Voucher eMAG', image: require('../assets/images/emag.jpg'), cost: 250 },
+    const offers = [
+        { id: '1', name: 'Gusturi romanesti | Salam de biscuiti cu rahat si stafide', image: require('../assets/images/salambiscuiti.png'), cost: 20, description: 'Salam de biscuiti cu rahat si stafide, un desert traditional romanesc.' },
+        { id: '2', name: 'Reducere 20% la produsele mega', image: require('../assets/images/mega_image_logo.png'), cost: 100, description: 'Reducere de 20% la toate produsele din magazinul Mega Image.' },
+        { id: '3', name: 'Baton Snickers', image: require('../assets/images/snickers.jpg'), cost: 200, description: 'Baton de ciocolata Snickers, perfect pentru o gustare rapida.' },
+        { id: '4', name: '-41% Gusturi romanesti | Carcasa de curcan', image: require('../assets/images/curcan.png'), cost: 0, description: 'Reducere aplicata pentru toti clientii cu card connect.' },
     ];
 
-    const handleRewardPress = (reward) => {
-        setSelectedReward(reward);
+    const handleOfferPress = (offer) => {
+        setSelectedOffer(offer);
         setModalVisible(true);
     };
 
     const handleRedeem = async () => {
-        const totalCost = selectedReward.cost * quantity;
+        const totalCost = selectedOffer.cost * quantity;
         if (totalCost > data.numarCredite) {
-            alert('Nu aveți suficiente credite.');
+            alert('Nu aveți suficiente puncte de loialitate.');
         } else {
-            await axios.put(`http://${IP}:5555/livrator/credite-minus/${idUtilizator}`,{
+            await axios.put(`http://${IP}:5555/utilizator/credite-minus/${idUtilizator}`,{
                 payload: totalCost
             });
             await fetchData();
-            // Aici puteți adăuga logica pentru a scădea creditele și a procesa revendicarea
-            alert(`Ați revendicat ${quantity} ${selectedReward.name} pentru ${totalCost} credite.`);
+            alert(`Ați revendicat ${quantity} ${selectedOffer.name} pentru ${totalCost} puncte de loialitate.`);
         }
         setModalVisible(false);
     };
-  
+
     return (
         <SafeAreaView style={{flex:1, backgroundColor:"#f5f5f5"}}>
             <ScrollView style={styles.container}>
                 {loading == false ? (
                     <>
                         <View style={styles.creditsContainer}>
-                            <Icon name="star" size={30} color="gold" />
-                            <Text style={styles.creditsText}>{data.numarCredite} Credite EcoByte</Text>
-                            <Icon name="star" size={30} color="gold" />
+                            <Icon name="loyalty" size={30} color="red" />
+                            <Text style={styles.creditsText}>{data.numarCredite} Puncte de Loialitate</Text>
+                            <Icon name="loyalty" size={30} color="red" />
                         </View>
                         <View style={styles.itemContainer}>
                             <Text style={styles.title}>Setările Contului</Text>
                             <View style={styles.detailContainer}>
-                                <Icon name="person" size={20} color="purple" />
-                                <Text style={styles.text}><Text style={styles.label}>ID: </Text>{data._id}</Text>
-                            </View>
-                            <View style={styles.detailContainer}>
-                                <Icon name="email" size={20} color="purple" />
+                                <Icon name="email" size={20} color="red" />
                                 <Text style={styles.text}><Text style={styles.label}>Email: </Text>{data.email}</Text>
                             </View>
                             <View style={styles.detailContainer}>
-                                <Icon name="lock" size={20} color="purple" />
+                                <Icon name="lock" size={20} color="red" />
                                 <Text style={styles.text}><Text style={styles.label}>Parola: </Text>{data.password}</Text>
                             </View>
                             <View style={styles.detailContainer}>
-                                <Icon name="badge" size={20} color="purple" />
+                                <Icon name="badge" size={20} color="red" />
                                 <Text style={styles.text}><Text style={styles.label}>Nume: </Text>{data.nume}</Text>
                             </View>
                             <View style={styles.detailContainer}>
-                                <Icon name="badge" size={20} color="purple" />
+                                <Icon name="badge" size={20} color="red" />
                                 <Text style={styles.text}><Text style={styles.label}>Prenume: </Text>{data.prenume}</Text>
                             </View>
                         </View>
-                        <TouchableOpacity style={styles.button} onPress={() => setShowRewards(!showRewards)}>
-                            <Icon name="redeem" size={24} color="#fff" />
-                            <Text style={styles.buttonText}>Revendică Premiile</Text>
+                        <TouchableOpacity style={styles.button} onPress={() => setShowOffers(!showOffers)}>
+                            <Icon name="local-offer" size={24} color="#fff" />
+                            <Text style={styles.buttonText}>Vezi Ofertele Exclusive</Text>
                         </TouchableOpacity>
-                        {showRewards && (
-                            <View style={styles.rewardsContainer}>
-                                {rewards.map(reward => (
-                                    <TouchableOpacity key={reward.id} style={styles.rewardCard} onPress={() => handleRewardPress(reward)}>
-                                        <Image source={reward.image} style={styles.rewardImage} />
-                                        <Text style={styles.rewardText}>{reward.name}</Text>
+                        {showOffers && (
+                            <View style={styles.offersContainer}>
+                                {offers.map(offer => (
+                                    <TouchableOpacity key={offer.id} style={styles.offerCard} onPress={() => handleOfferPress(offer)}>
+                                        <Image source={offer.image} style={styles.offerImage} />
+                                        <Text style={styles.offerText}>{offer.name}</Text>
                                     </TouchableOpacity>
                                 ))}
                             </View>
@@ -106,7 +101,7 @@ export default function Cont({route}) {
                     <Text>Loading...</Text>
                 )}
             </ScrollView>
-            {selectedReward && (
+            {selectedOffer && (
                 <Modal
                     animationType="slide"
                     transparent={true}
@@ -115,7 +110,13 @@ export default function Cont({route}) {
                 >
                     <View style={styles.modalWrapper}>
                         <View style={styles.modalContent}>
-                            <Text style={styles.modalTitle}>Selectați Cantitatea</Text>
+                            <Text style={styles.modalTitle}>{selectedOffer.name}</Text>
+                            <Text style={styles.modalDescription}>{selectedOffer.description}</Text>
+                            {selectedOffer.id === '4' ? (
+                                <Text style={styles.modalSpecial}>Reducere aplicata pentru toti clientii cu card connect.</Text>
+                            ) : (
+                                <Text style={styles.modalText}>Cost total: {selectedOffer.cost * quantity} Puncte de Loialitate</Text>
+                            )}
                             <TextInput
                                 style={styles.input}
                                 placeholder="Cantitate"
@@ -123,7 +124,6 @@ export default function Cont({route}) {
                                 onChangeText={setQuantity}
                                 keyboardType="numeric"
                             />
-                            <Text style={styles.modalText}>Cost total: {selectedReward.cost * quantity} Credite</Text>
                             <TouchableOpacity style={styles.button} onPress={handleRedeem}>
                                 <Text style={styles.buttonText}>Revendică</Text>
                             </TouchableOpacity>
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 22,
         fontWeight: 'bold',
-        color: 'purple',
+        color: 'red',
         marginBottom: 20,
         textAlign: 'center',
     },
@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
     },
     label: {
         fontWeight: 'bold',
-        color: 'purple',
+        color: 'red',
     },
     creditsContainer: {
         flexDirection: 'row',
@@ -182,14 +182,14 @@ const styles = StyleSheet.create({
     creditsText: {
         fontSize: 24,
         fontWeight: 'bold',
-        color: 'gold',
+        color: 'red',
         marginHorizontal: 10,
     },
     button: {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'purple',
+        backgroundColor: 'red',
         padding: 15,
         borderRadius: 10,
         marginTop: 20,
@@ -199,10 +199,10 @@ const styles = StyleSheet.create({
         color: '#fff',
         marginLeft: 10,
     },
-    rewardsContainer: {
+    offersContainer: {
         marginTop: 20,
     },
-    rewardCard: {
+    offerCard: {
         backgroundColor: '#fff',
         padding: 20,
         marginVertical: 10,
@@ -214,12 +214,12 @@ const styles = StyleSheet.create({
         elevation: 3,
         alignItems: 'center',
     },
-    rewardImage: {
+    offerImage: {
         width: 100,
         height: 100,
         marginBottom: 10,
     },
-    rewardText: {
+    offerText: {
         fontSize: 16,
         fontWeight: 'bold',
         color: '#333',
@@ -240,6 +240,17 @@ const styles = StyleSheet.create({
     modalTitle: {
         fontSize: 18,
         marginBottom: 10,
+    },
+    modalDescription: {
+        fontSize: 16,
+        marginBottom: 10,
+        textAlign: 'center',
+    },
+    modalSpecial: {
+        fontSize: 16,
+        marginBottom: 20,
+        color: 'red',
+        textAlign: 'center',
     },
     input: {
         height: 40,

@@ -9,11 +9,11 @@ const Tab = createBottomTabNavigator();
 
 export default function Mainpage() {
 
-    const {idUtilizator} = useLocalSearchParams<{idUtilizator:string}>();
+    const {idUtilizator, guest} = useLocalSearchParams<{idUtilizator:string, guest:string}>();
 
     return (
         <Tab.Navigator 
-        initialRouteName="Cosul meu"
+        initialRouteName="Coșul meu"
         screenOptions={{
             headerShown:true,
             tabBarShowLabel:false,
@@ -22,7 +22,7 @@ export default function Mainpage() {
         }}
         >
 
-            <Tab.Screen name = "Cosul meu"
+            <Tab.Screen name = "Coșul meu"
             component={Cosulmeu} 
             options={{
                 tabBarIcon: ({color,size})=>{
@@ -30,21 +30,22 @@ export default function Mainpage() {
                 },
                 unmountOnBlur: true
             }}
-            initialParams={{ idUtilizator: idUtilizator}}
+            initialParams={{ idUtilizator: idUtilizator, guest: guest }}
             >
             </Tab.Screen>
-
-            <Tab.Screen name = "Cont"
-            component={Cont}
-            options={{
-                tabBarIcon: ({color,size})=>{
-                    return <Ionicons name={"settings-sharp"} size={30} color={color} />
-                },
-                unmountOnBlur: true
-            }}
-            initialParams={{idUtilizator: idUtilizator}}
-            >
-            </Tab.Screen>
+            {guest != "true" && (
+                <Tab.Screen name = "Cont"
+                component={Cont}
+                options={{
+                    tabBarIcon: ({color,size})=>{
+                        return <Ionicons name={"settings-sharp"} size={30} color={color} />
+                    },
+                    unmountOnBlur: true
+                }}
+                initialParams={{idUtilizator: idUtilizator, guest: guest}}
+                >
+                </Tab.Screen>
+            )}
 
         </Tab.Navigator>
 

@@ -1,5 +1,7 @@
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, Image } from "react-native";
 import { router } from "expo-router";
+import axios from "axios";
+import { IP } from "@/data/ip";
 
 export default function Autentificare() {
 
@@ -11,8 +13,20 @@ export default function Autentificare() {
         router.push("/autentificareutilizator");
     };
 
-    const handleGuest = () => {
-        router.push("/guest");
+    const handleGuest = async () => {
+        const response = await axios.post(`http://${IP}:5555/utilizator/register`,{
+            "email":"guest",
+            "password":"guest",
+            "nume":"guest",
+            "prenume":"guest",
+        })
+        router.push({
+            pathname: "/mainpage",
+            params: {
+                idUtilizator: response.data._id,
+                guest: "true"
+            }
+        });
     };
 
     return (

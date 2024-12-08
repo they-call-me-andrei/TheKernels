@@ -1,0 +1,125 @@
+body {
+  background-color: #f8f9fa;
+  font-family: Arial, sans-serif;
+}
+
+.App-header {
+  text-align: center;
+  padding: 20px;
+}
+
+.category-selection {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.scroll-container {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 20px 0;
+}
+
+.scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+.product-card {
+  min-width: 300px;
+  max-width: 300px;
+  margin-right: 16px;
+  flex-shrink: 0;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.product-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.product-card.selected {
+  border: 2px solid #007bff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.card-img-container {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.card-img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.scroll-button {
+  background-color: #FF0000;
+  border: none;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  padding: 10px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scroll-button.left {
+  left: -50px;
+}
+
+.scroll-button.right {
+  right: -50px;
+}
+
+.scale-section {
+  text-align: center;
+  margin-top: 20px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.scale-section h3 {
+  margin-bottom: 20px;
+}
+
+.scale-section .form-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.scale-section .form-group .form-label {
+  margin-right: 10px;
+}
+
+.scale-section .form-control {
+  max-width: 200px;
+  margin: 0 auto;
+}
+
+.scale-section p {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.scale-section .btn {
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+.qr-code {
+  margin-top: 20px;
+}

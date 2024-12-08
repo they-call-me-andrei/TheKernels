@@ -11,7 +11,7 @@ import { router } from 'expo-router';
 NfcManager.start();
 
 export default function Cosulmeu({ route }) {
-  const { idUtilizator } = route.params;
+  const { idUtilizator, guest } = route.params;
 
   const [showNfcPrompt, setShowNfcPrompt] = useState(false);
   const [produse, setProduse] = useState([]);
@@ -156,7 +156,11 @@ export default function Cosulmeu({ route }) {
     { image: require("../assets/images/rosii.jpg"),
     name: "Rosii" },
     { image: require("../assets/images/ardei_gras.jpg"),
-    name: "Ardei Gras" },    
+    name: "Ardei Gras" },  
+    { image: require("../assets/images/gofre.png"),
+      name: "Gofre Cu Zahar" }, 
+    { image: require("../assets/images/biscuiti.png"),
+    name: "Biscuiti Cu Cereale Integrale" },   
    ]; 
 
     const handleNavigate = () => {
@@ -164,7 +168,8 @@ export default function Cosulmeu({ route }) {
         pathname:"/payment",
         params: {
             idUtilizator: idUtilizator,
-            gramajTotal: gramajTotal
+            gramajTotal: gramajTotal,
+            guest: guest
         }
     });
     };

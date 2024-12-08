@@ -7,7 +7,7 @@ import QRCode from 'react-native-qrcode-svg';
 import { router } from 'expo-router';
 
 export default function Payment() {
-  const { idUtilizator, gramajTotal } = useLocalSearchParams<{ idUtilizator: string, gramajTotal: number }>();
+  const { idUtilizator, gramajTotal, guest} = useLocalSearchParams<{ idUtilizator: string, gramajTotal: number, guest: string }>();
 
   const [pretTotal, setPretTotal] = useState(0);
   const [showCashModal, setShowCashModal] = useState(false);
@@ -36,6 +36,12 @@ export default function Payment() {
   const makePayment = async () => {
     try {
       await axios.delete(`http://${IP}:5555/complete-payment/${idUtilizator}`);
+      if(guest == "true"){
+        console.log("guest");
+        await axios.get(`http://${IP}:5555/stergeutil/${idUtilizator}`);
+      }else{
+        await axios.put(`http://${IP}:5555/utilizator/credite/${idUtilizator}`);
+      }
     } catch (error) {
       console.error('Error fetching pretTotal:', error);
     }
@@ -58,12 +64,16 @@ export default function Payment() {
 
   function handleClose(){
     setShowCashModal(false);
-    router.push({
-      pathname:"/mainpage",
-      params: {
-          idUtilizator: idUtilizator
-      }
-  });
+    if(guest != "true"){
+      router.push({
+        pathname:"/mainpage",
+        params: {
+            idUtilizator: idUtilizator
+        }
+    });
+  }else{
+      router.push("/selectauth");
+  }
   }
 
   return (

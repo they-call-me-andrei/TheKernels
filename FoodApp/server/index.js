@@ -225,6 +225,54 @@ app.delete("/complete-payment/:id", async (request, response) => {
     }
 });
 
+app.put("/utilizator/credite/:id", async (request, response)=>{
+    try {
+        var id_param = request.params.id;
+
+        const result = await Utilizator.findById(id_param);
+
+        await Utilizator.findByIdAndUpdate(id_param, {numarCredite: result.numarCredite + 50});
+
+        return response.status(200).json({message: "Creditele au fost actualizat cu succes"});
+    } catch (error) {
+        console.log(error.message);
+        response.status(500).send({message: error.message});
+    }
+});
+
+app.put("/utilizator/credite-minus/:id", async (request, response)=>{
+    try {
+        var id_param = request.params.id;
+
+        const result = await Utilizator.findById(id_param);
+
+        await Utilizator.findByIdAndUpdate(id_param, {numarCredite: result.numarCredite - Number(request.body.payload)});
+
+        return response.status(200).json({message: "Creditele au fost actualizat cu succes"});
+    } catch (error) {
+        console.log(error.message);
+        response.status(500).send({message: error.message});
+    }
+});
+
+app.get("/stergeutil/:id", async (request, response) => {
+    try {
+        const idUtilizator = request.params.id;
+
+        const utilizator = await Utilizator.findByIdAndDelete(idUtilizator);
+
+        if (!utilizator) {
+            return response.status(404).json({ message: "Utilizatorul nu a fost găsit" });
+        }
+
+        return response.status(200).json({ message: "Utilizatorul a fost șters cu succes" });
+
+    } catch (error) {
+        console.log(error.message);
+        response.status(500).send({ message: error.message });
+    }
+});
+
 mongoose.connect(mongoDBURL).then(()=>{
     console.log("App conected to database");
     app.listen(PORT, ()=>{
