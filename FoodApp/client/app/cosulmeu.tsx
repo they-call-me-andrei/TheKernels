@@ -126,53 +126,38 @@ export default function Cosulmeu({ route }) {
     { image: require("../assets/images/kiwi.jpg"),
     name: "Kiwi" },
     { image: require("../assets/images/ananas.jpg"),
-      name: "Ananas" },
-      { image: require("../assets/images/pere.jpg"),
-        name: "Pere" },
-        { image: require("../assets/images/pepene_rosu.jpg"),
-          name: "Pepene Rosu" },
-          { image: require("../assets/images/pepene_galben.jpg"),
-            name: "Pepene Galben" },
-            { image: require("../assets/images/struguri.jpg"),
-              name: "Struguri" },
-              { image: require("../assets/images/portocala.jpg"),
-                name: "Portocale" },
-                { image: require("../assets/images/banana.jpg"),
-                  name: "Banane" },
-  
-                  { image: require("../assets/images/mar.jpg"),
-                    name: "Mere" },
-  
-                    { image: require("../assets/images/morcov.jpg"),
-                      name: "Morcovi" },
-  
-                      { image: require("../assets/images/cartof.jpg"),
-                        name: "Cartofi" },
-  
-                        { image: require("../assets/images/broccoli.jpg"),
-                          name: "Broccoli" },
-  
-                          { image: require("../assets/images/ceapa.jpg"),
-                            name: "Ceapa" },
-  
-                            { image: require("../assets/images/vinete.jpg"),
-                              name: "Vinete" },
-  
-                              { image: require("../assets/images/castraveti.jpg"),
-                                name: "Castraveti" },
-                                { image: require("../assets/images/rosii.jpg"),
-                                  name: "Rosii" },
-                                  { image: require("../assets/images/ardei_gras.jpg"),
-                                    name: "Ardei Gras" },    
-  
+    name: "Ananas" },
+    { image: require("../assets/images/pere.jpg"),
+    name: "Pere" },
+    { image: require("../assets/images/pepene_rosu.jpg"),
+    name: "Pepene Rosu" },
+    { image: require("../assets/images/pepene_galben.jpg"),
+      name: "Pepene Galben" },
+    { image: require("../assets/images/struguri.jpg"),
+      name: "Struguri" },
+    { image: require("../assets/images/portocala.jpg"),
+      name: "Portocale" },
+    { image: require("../assets/images/banana.jpg"),
+      name: "Banane" },
+    { image: require("../assets/images/mar.jpg"),
+    name: "Mere" },
+    { image: require("../assets/images/morcov.jpg"),
+    name: "Morcovi" },
+    { image: require("../assets/images/cartof.jpg"),
+    name: "Cartofi" },  
+    { image: require("../assets/images/broccoli.jpg"),
+    name: "Broccoli" },  
+    { image: require("../assets/images/ceapa.jpg"),
+    name: "Ceapa" },  
+    { image: require("../assets/images/vinete.jpg"),
+    name: "Vinete" },  
+    { image: require("../assets/images/castraveti.jpg"),
+    name: "Castraveti" },
+    { image: require("../assets/images/rosii.jpg"),
+    name: "Rosii" },
+    { image: require("../assets/images/ardei_gras.jpg"),
+    name: "Ardei Gras" },    
    ]; 
-
-   /*
-   <View style={styles.totalContainer}>
-          <Icon name="scale" size={24} color="#FF0000" />
-          <Text style={styles.totalText}>Gramaj Total: {gramajTotal} g</Text>
-        </View>
-   */
 
     const handleNavigate = () => {
       router.push({

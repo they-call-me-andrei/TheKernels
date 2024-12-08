@@ -53,10 +53,10 @@ const styles = StyleSheet.create({
         fontSize: 26,
         fontWeight: "500",
         color: "#281b52",
-        marginBottom: 20, // Distanță între text și butoane
-        textAlign: 'center', // Centrare pe orizontală
-        marginHorizontal: 20, // Distanță față de margini
-        marginTop: 60, // Distanță față de margini
+        marginBottom: 20,
+        textAlign: 'center',
+        marginHorizontal: 20,
+        marginTop: 60,
     },
     buttonContainer: {
         justifyContent: 'center',
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
         width: 200,
         height: 50,
         marginVertical: 10,
-        backgroundColor: "#e30613", // Culoare roșie asemănătoare cu Mega Image
+        backgroundColor: "#e30613",
         borderRadius: 25,
         justifyContent: 'center',
         alignItems: 'center',
@@ -79,6 +79,6 @@ const styles = StyleSheet.create({
     buttonText: {
         fontSize: 17,
         fontWeight: "500",
-        color: "#ffffff" // Text alb
+        color: "#ffffff"
     }
 });

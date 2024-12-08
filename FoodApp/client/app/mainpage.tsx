@@ -1,7 +1,6 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "@expo/vector-icons/Ionicons"
 import { useLocalSearchParams } from "expo-router";
-import Acasa from "./acasa";
 import Cont from "./cont";
 import Cosulmeu from "./cosulmeu";
 
